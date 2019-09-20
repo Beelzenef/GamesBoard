@@ -1,0 +1,72 @@
+﻿@page "/addnew"
+
+
+<h1>Add new game</h1>
+
+<EditForm Model="@game">
+
+    <table class="form-group">
+        <tr colspan="2">
+            <td>
+                <p>
+                    <label>Game title:</label>
+                    <InputText id="title" @bind-Value="game.Title" />
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p>
+                    <label>Number of players</label>
+                    <InputSelect id="players" @bind-Value="game.Players">
+                        <option value="none">Select number of players...</option>
+                        <option value="one">1</option>
+                        <option value="two">2</option>
+                        <option value="three">3</option>
+                    </InputSelect>
+                </p>
+            </td>
+            <td>
+                <p>
+                    <label>Rulebook</label>
+                    <InputSelect id="rulebook" @bind-Value="game.Rulebook">
+                        <option value="none">Select rulebook...</option>
+                        <option value="dyd">Dungeons & Dragons 5thEd</option>
+                        <option value="vtm">Vampire: The Masquerade</option>
+                        <option value="ep">Eclipse Phase</option>
+                    </InputSelect>
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p>
+                    <label>Start date</label>
+                    <InputDate id="startDate" @bind-Value="game.StartDate"/>
+                </p>
+            </td>
+            <td>
+                <p>
+                    <label>First time as DM?</label>
+                    <InputCheckbox id="firstDM" @bind-Value="game.FirstTimeDm"/>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary" @onclick="AddNewGame">Add!</button>
+            </td>
+        </tr>
+    </table>
+</EditForm>
+
+@code {
+    private Data.Entities.Games game = new Data.Entities.Games();
+
+    private void AddNewGame()
+    {
+        Console.WriteLine("adding new game!");
+    }
+}

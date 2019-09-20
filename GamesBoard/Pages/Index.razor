@@ -1,7 +1,44 @@
 ﻿@page "/"
+@inject HttpClient Http
 
-<h1>Hello, world!</h1>
+<h1>Games added</h1>
 
-Welcome to your new app.
+<p>Showing all the games you can play!</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if (games == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Number of players</th>
+                <th>Rulebook</th>
+                <th>Start date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in games)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@game.Players</td>
+                    <td>@game.Rulebook</td>
+                    <td>@game.StartDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    Data.Entities.Games[] games;
+
+    protected override async Task OnInitializedAsync()
+    {
+        games = await Http.GetJsonAsync<Data.Entities.Games[]>("sample-data/games-data.json");
+    }
+}
